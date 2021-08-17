@@ -1,20 +1,30 @@
+import collections
+
 class Solution(object):
     def groupAnagrams(self, strs):
         """
         :type strs: List[str]
         :rtype: List[List[str]]
         """
+        # 처음 풀이
+        # sorted_strs = [''.join(sorted(s)) for s in strs]
+        # result = []
+        # for word in set(sorted_strs):
+        #     word_index = []
+        #     for i, d in enumerate(sorted_strs):
+        #         if word == d:
+        #             word_index.append(strs[i])
+        #     result.append(word_index)
+        #
+        # return result
 
-        sorted_strs = [''.join(sorted(s)) for s in strs]
-        result = []
-        for word in set(sorted_strs):
-            word_index = []
-            for i, d in enumerate(sorted_strs):
-                if word == d:
-                    word_index.append(strs[i])
-            result.append(word_index)
+        # defaultdict를 활용한 방식
+        anagrams = collections.defaultdict(list)
 
-        return result
+        for word in strs:
+            anagrams[''.join(sorted(word))].append(word)
+
+        return list(anagrams.values())
 
 
 s = Solution()
